@@ -72,7 +72,8 @@ def run(args):
     shortcode = code[1:].lstrip('0')
     shortcode = f'{sub} {shortcode}'
     print(shortcode)
-    soup = [i for i in soup if determine(i, shortcode)]
+    
+    soup = filter(lambda x: determine(x, shortcode), soup)
     teach_list = [i.find_all('td')[7].text.lower() for i in soup if i.find_all('td')[3].text == 'Open' or i.find_all('td')[3].text == 'Full' or i.find_all('td')[3].text == 'WL']
 
 
@@ -120,7 +121,7 @@ if __name__ == '__main__':
     parser.add_argument('-hist', '--history', action='store_true', default=False, help='Shows a history of the department while ignoring the active teachers')
     args = parser.parse_args()
     args.college = args.college.lower()
-    assert args.college == 'deanza' or args.college == 'foothill', 'please put the right college'
+    assert args.college == 'deanza' or args.college == 'foothill', 'please put the right college you dumb bitch'
     assert args.year.isnumeric(), 'year is a number'
 
     run(args)
